@@ -20,8 +20,20 @@ let tasklist = [
   },
   {
     id: "789",
-    project: "SWRE",
-    task: "Banner update",
+    project: "TaskManager",
+    task: "Frontend update",
+    assignedOn: "1692184282172",
+    priority: 0,
+    status: false,
+    assignedTo: "Shiva",
+  },
+];
+let tasklistTemp;
+let Shivatasks = [
+  {
+    id: "789",
+    project: "TaskManager",
+    task: "Frontend update",
     assignedOn: "1692184282172",
     priority: 0,
     status: false,
@@ -32,7 +44,6 @@ let tasklist = [
 let selectedTaskId = 0;
 let selectedEmployee = "Girish";
 
-const taskcontent = document.querySelector(".tasks_content");
 const taskmodal = document.querySelector(".show_task_content");
 
 const selectedEmployeeTab = document.getElementById("selectedEmployee");
@@ -42,6 +53,14 @@ console.log(selectedEmployeeTab.value);
 selectedEmployeeTab.addEventListener("change", (event) => {
   selectedEmployee = selectedEmployeeTab.value;
   console.log("clicked", selectedEmployee, selectedEmployeeTab.value);
+
+  if (`${selectedEmployeeTab.value}tasks` == "Shivatasks") {
+    console.log("clicked shiva's task");
+    tasklistTemp = tasklist;
+    tasklist = Shivatasks;
+  } else {
+    tasklist = tasklistTemp;
+  }
   updateIntialData();
 });
 var table;
@@ -381,20 +400,4 @@ const updateIntialData = () => {
   selectedEmployeeTitle.innerHTML = selectedEmployee;
   reRenderData();
   console.log("update intial data called");
-};
-
-const searchTask = (e) => {
-  if (!e) e = window.event;
-
-  while (taskcontent.firstChild) {
-    taskcontent.removeChild(taskcontent.firstChild);
-  }
-
-  const resultData = state.tasklist.filter(({ title }) => {
-    return title.toLowerCase().includes(e.target.value.toLowerCase());
-  });
-
-  resultData.map((cardDate) => {
-    taskcontent.insertAdjacentHTML("beforeend", htmlTaskContent(cardDate));
-  });
 };
