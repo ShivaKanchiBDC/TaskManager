@@ -2,7 +2,7 @@ let tasklist = [
   {
     id: "123",
     project: "Asign",
-    task: "pdf update",
+    task: "Pdf update",
     assignedOn: "1692184282172",
     priority: 1,
     status: true,
@@ -12,7 +12,7 @@ let tasklist = [
   {
     id: "456",
     project: "Camel",
-    task: "emailers",
+    task: "Emailers",
     assignedOn: "1692184282172",
     priority: 0,
     status: false,
@@ -21,7 +21,7 @@ let tasklist = [
   {
     id: "789",
     project: "SWRE",
-    task: "emailers",
+    task: "Banner update",
     assignedOn: "1692184282172",
     priority: 0,
     status: false,
@@ -30,11 +30,20 @@ let tasklist = [
 ];
 
 let selectedTaskId = 0;
+let selectedEmployee = "Girish";
 
-$(document).ready(function () {
-  renderData(tasklist);
+const taskcontent = document.querySelector(".tasks_content");
+const taskmodal = document.querySelector(".show_task_content");
+
+const selectedEmployeeTab = document.getElementById("selectedEmployee");
+const selectedEmployeeTitle = document.getElementById("selectedEmployeeTitle");
+console.log(selectedEmployeeTab.value);
+
+selectedEmployeeTab.addEventListener("change", (event) => {
+  selectedEmployee = selectedEmployeeTab.value;
+  console.log("clicked", selectedEmployee, selectedEmployeeTab.value);
+  updateIntialData();
 });
-
 var table;
 // Function to render data into the DataTable
 function renderData(data) {
@@ -45,15 +54,16 @@ function renderData(data) {
       {
         data: "task",
         render: function (data, type, row) {
-          return `<h2
-            class="btn btn-outline-primary float-right"
+          return `<span
+            class="float-right"
             data-bs-toggle="modal"
             data-bs-target="#showTaskModal"
+            style="cursor:pointer"
             id="${row.id}"
             onclick="openTask.apply(this,arguments)"
           >
             ${data}
-          </button>`;
+          </span>`;
         },
       },
       { data: "assignedTo" },
@@ -129,12 +139,18 @@ function renderData(data) {
   });
 }
 
+$(document).ready(function () {
+  renderData(tasklist);
+});
+
 function reRenderData() {
   // button
   let savebutton = document.getElementById("savetask");
   savebutton.style.display = "inline";
   let updatebutton = document.getElementById("updatetask");
   updatebutton.style.display = "none";
+  let statusgroup = document.getElementById("status_group");
+  statusgroup.style.display = "none";
   selectedTaskId = 0;
   // Clear and destroy the existing DataTable
   if (table) {
@@ -143,11 +159,6 @@ function reRenderData() {
   // Re-render with new data
   renderData(tasklist);
 }
-// Initial datatable rendering when the DOM is ready
-
-const taskcontent = document.querySelector(".tasks_content");
-const tasktable1 = document.querySelector("#tasktable");
-const taskmodal = document.querySelector(".show_task_content");
 
 const handleSubmit = (event) => {
   const id = `${Date.now()}`;
@@ -357,8 +368,19 @@ const updateLocalStorage = () => {
 };
 
 const updateIntialData = () => {
+  // selectedEmployeeTab.value = selectedEmployee;
+  {
+    let employeeOptionToSelect = selectedEmployee;
+    let optionToSelect = selectedEmployeeTab.querySelector(
+      `option[value="${employeeOptionToSelect}"]`
+    );
+    if (optionToSelect) {
+      optionToSelect.selected = true;
+    }
+  }
+  selectedEmployeeTitle.innerHTML = selectedEmployee;
   reRenderData();
-  console.log("intial data called");
+  console.log("update intial data called");
 };
 
 const searchTask = (e) => {

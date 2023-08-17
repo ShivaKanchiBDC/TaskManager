@@ -25,6 +25,14 @@
       href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css"
       rel="stylesheet"
     />
+    <link
+      href="https://cdn.datatables.net/searchbuilder/1.5.0/css/searchBuilder.dataTables.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdn.datatables.net/datetime/1.5.1/css/dataTables.dateTime.min.css"
+      rel="stylesheet"
+    />
     <title>Task Manager</title>
   </head>
 
@@ -296,50 +304,51 @@
       </section>
 
       <!--Task Contents-->
-      <section class="pt-5 border-top mt-5">
+      <section class="">
         <!-- Add task -->
-        <div class="">
-          <div class="row">
-            <h4 class="col-2">Employees :</h4>
-            <div
-              id="employee_navbar"
-              class="btn-group pt-2"
-              role="group"
-              aria-label="Basic radio toggle button group"
-            >
-              <input
-                type="radio"
-                class="btn-check"
-                name="Employee"
-                id="Shiva"
-                autocomplete="off"
-              />
-              <label class="btn btn-outline-primary" for="Shiva">Shiva</label>
-
-              <input
-                type="radio"
-                class="btn-check"
-                name="Employee"
-                id="Jwala"
-                autocomplete="off"
-              />
-              <label class="btn btn-outline-primary" for="Jwala">Jwala</label>
-
-              <input
-                type="radio"
-                class="btn-check"
-                name="Employee"
-                id="Sagar"
-                autocomplete="off"
-              />
-              <label class="btn btn-outline-primary" for="Sagar">Sagar</label>
+        <div class="border-top mt-5">
+          <div class="mt-5 d-flex align-items-center g-5">
+            <h2 class="d-inline-block fs-2">Employee :</h2>
+            <div class="d-inline-block">
+              <!-- <div class="dropdown" id="selectedEmployee">
+                <button
+                  class="btn btn-primary dropdown-toggle"
+                  type="button"
+                  id="dropdownMenuButton2"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                >
+                  Girish
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
+                  <li><a class="dropdown-item active" href="#">Girish</a></li>
+                  <li><hr class="dropdown-divider" /></li>
+                  <li><a class="dropdown-item" href="#">Jwala</a></li>
+                  <li><a class="dropdown-item" href="#">Sunil</a></li>
+                  <li><a class="dropdown-item" href="#">Sagar</a></li>
+                  <li><a class="dropdown-item" href="#">Shiva</a></li>
+                </ul>
+              </div> -->
+              <select
+                class="form-select"
+                aria-label="Default select example"
+                id="selectedEmployee"
+              >
+                <option value="Girish">Girish</option>
+                <option value="Sagar">Sagar</option>
+                <option value="Jwala">Jwala</option>
+                <option value="Shiva">Shiva</option>
+              </select>
             </div>
           </div>
 
           <div
             class="d-flex flex-row align-items-center justify-content-between mt-5"
           >
-            <h2>Tasks</h2>
+            <h2 class="d-block">
+              Tasks of
+              <span id="selectedEmployeeTitle"> Girish</span>
+            </h2>
             <button
               class="btn btn-primary d-block"
               type="submit"
@@ -365,15 +374,7 @@
                 <th>Actions</th>
               </tr>
             </thead>
-            <!-- <tbody>
-              <tr>
-                <td>Project</td>
-                <td>Task</td>
-                <td>Date</td>
-                <td>Priority</td>
-                <td>Status</td>
-              </tr>
-            </tbody> -->
+
             <tfoot>
               <tr>
                 <th>Project</th>
@@ -388,15 +389,12 @@
           </table>
         </div>
       </section>
-
-      <!-- <section class="mt-4 p-3">
-        <div class="mt-lg-5 row tasks_content"></div>
-      </section> -->
     </div>
 
-    <!--Script-->
+    <!--Scripts-->
+    <!-- Jquery -->
     <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
-
+    <!-- js -->
     <script src="scripts/index.js"></script>
     <!-- Bootstrap -->
     <script
@@ -404,8 +402,9 @@
       integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa"
       crossorigin="anonymous"
     ></script>
-
     <!-- Datatable -->
     <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/searchbuilder/1.5.0/js/dataTables.searchBuilder.min.js"></script>
+    <script src="https://cdn.datatables.net/datetime/1.5.1/js/dataTables.dateTime.min.js"></script>
   </body>
 </html>
