@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="styles/index.css" rel="stylesheet" />
+    <!-- Bootstrap -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx"
+      crossorigin="anonymous"
+    />
+    <!-- Font -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
+      integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <!-- Datatable -->
+    <link
+      href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css"
+      rel="stylesheet"
+    />
+    <title>Task Manager</title>
+  </head>
+
+  <body onload="updateIntialData() ">
+    <!--Mobile Add button-->
+    <div class="button__mobileonly d-md-none">
+      <button
+        class="btn btn-primary"
+        type="submit"
+        data-bs-toggle="modal"
+        data-bs-target="#addNewModal"
+      >
+        <i class="fa-solid fa-plus"></i>
+        Add new Task
+      </button>
+    </div>
+
+    <!--Add new task modal-->
+    <div
+      class="modal fade"
+      id="addNewModal"
+      tabindex="-1"
+      aria-labelledby="addNewModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="addNewModalLabel">Add New Task</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <form onsubmit="return false" id="taskform" task-id="Hello">
+              <div class="mb-3">
+                <label for="task_project" class="form-label">Project : </label>
+
+                <select
+                  id="task_project"
+                  name="task_project"
+                  class="form-select"
+                  required
+                  aria-label="Default select example"
+                >
+                  <option value="" disabled selected>Project Name</option>
+                  <option value="Asign">Asign</option>
+                  <option value="SWRE">SWRE</option>
+                  <option value="SWPL">SWPL</option>
+                  <option value="Camel">Camel</option>
+                </select>
+              </div>
+
+              <div class="mb-3">
+                <label for="task_title" class="form-label">Task : </label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="task_title"
+                  placeholder="Task name"
+                  required
+                />
+              </div>
+
+              <div class="mb-3">
+                <label for="task_assigned_to" class="form-label"
+                  >Assign to :
+                </label>
+                <select
+                  id="task_assigned_to"
+                  name="task_assigned_to"
+                  class="form-select"
+                  required
+                  aria-label="Default select example"
+                >
+                  <option value="" disabled selected>Employee Name</option>
+                  <option value="Sagar">Sagar</option>
+                  <option value="Jwala">Jwala</option>
+                  <option value="Sunil">Sunil</option>
+                  <option value="Umesh">Umesh</option>
+                </select>
+              </div>
+              <!-- <div class="mb-3">
+                <label for="task_assigned_on" class="form-label"
+                  >Assigned On:</label
+                >
+                <input
+                  type="datetime-local"
+                  class="form-control"
+                  id="task_assigned_on"
+                  name="task_assigned_on"
+                />
+              </div> -->
+
+              <div class="mb-3">
+                <label for="priority" class="form-label">Priority : </label>
+                <select
+                  id="priority"
+                  name="priority"
+                  class="form-select"
+                  aria-label="Default select example"
+                  required
+                >
+                  <option value="0">High</option>
+                  <option value="1" selected>Medium</option>
+                </select>
+              </div>
+
+              <div class="mb-3" id="status_group">
+                <label class="mb-1">Status : </label>
+                <div class="form-check">
+                  <input
+                    class="form-check-input"
+                    type="radio"
+                    name="status"
+                    id="true"
+                  />
+                  <label class="form-check-label" for="true"> Completed </label>
+                </div>
+                <div class="form-check">
+                  <input
+                    class="form-check-input"
+                    type="radio"
+                    name="status"
+                    id="false"
+                    checked
+                  />
+                  <label class="form-check-label" for="false">
+                    Not Completed
+                  </label>
+                </div>
+              </div>
+
+              <!-- <div class="mb-3">
+                <label for="task_desc" class="form-label"
+                  >Task Description :
+                </label>
+                <textarea
+                  class="form-control"
+                  id="task_desc"
+                  placeholder="Describe your Task..."
+                  rows="4"
+                  required
+                ></textarea>
+              </div> -->
+
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-bs-dismiss="modal"
+              >
+                Close
+              </button>
+              <button
+                type="submit"
+                class="btn btn-primary"
+                data-bs-dismiss="modal"
+                onclick="saveTask()"
+                id="updatetask"
+              >
+                Update
+              </button>
+              <button
+                type="submit"
+                class="btn btn-primary"
+                data-bs-dismiss="modal"
+                onclick="handleSubmit()"
+                id="savetask"
+              >
+                Save
+              </button>
+            </form>
+          </div>
+          <div class="modal-footer"></div>
+        </div>
+      </div>
+    </div>
+
+    <!--show task modal-->
+    <div
+      class="modal fade"
+      id="showTaskModal"
+      tabindex="-1"
+      aria-labelledby="showTaskModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="showTaskModalLabel">Task</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body show_task_content">...</div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!--Nav Bar-->
+    <nav class="navbar navbar-expand-lg bg-light">
+      <div class="container-fluid">
+        <a class="navbar-brand fw-bold" href="#">
+          <i class="fa-solid fa-note-sticky"></i> Task Manager
+        </a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarScroll"
+          aria-controls="navbarScroll"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarScroll">
+          <!-- <ul class="nav-bar nav me-auto">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="#">Home</a>
+            </li>
+          </ul> -->
+        </div>
+      </div>
+    </nav>
+
+    <!--main body-->
+    <div class="container">
+      <section class="mt-4">
+        <div class="profile_details">
+          <div class="name">
+            <span>Name: </span>
+            <h1 class="d-inline-block" id="user_name">Shiva Kanchi</h1>
+          </div>
+
+          <div class="designation">
+            <span>Designation: </span>
+            <p class="d-inline-block" id="user_designation">
+              Jr. Web Developer
+            </p>
+          </div>
+
+          <div class="department">
+            <span>Department: </span>
+            <p class="d-inline-block" id="user_department">Tech team</p>
+          </div>
+
+          <div class="manager">
+            <span>Manager: </span>
+            <p class="d-inline-block" id="user_manager">Girish</p>
+          </div>
+        </div>
+      </section>
+
+      <!--Task Contents-->
+      <section class="pt-5 border-top mt-5">
+        <!-- Add task -->
+        <div class="d-flex flex-row align-items-center justify-content-between">
+          <h2>Tasks</h2>
+          <button
+            class="btn btn-primary d-block"
+            type="submit"
+            data-bs-toggle="modal"
+            data-bs-target="#addNewModal"
+          >
+            <i class="fa-solid fa-plus"></i>
+            Add new
+          </button>
+        </div>
+
+        <div class="mt-5" id="tasks">
+          <table id="tasktable" class="display" style="width: 100%">
+            <thead>
+              <tr>
+                <th>Project</th>
+                <th>Task</th>
+                <th>Assigned To</th>
+                <th>Date</th>
+                <th>Priority</th>
+                <th>Status</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <!-- <tbody>
+              <tr>
+                <td>Project</td>
+                <td>Task</td>
+                <td>Date</td>
+                <td>Priority</td>
+                <td>Status</td>
+              </tr>
+            </tbody> -->
+            <tfoot>
+              <tr>
+                <th>Project</th>
+                <th>Task</th>
+                <th>Assigned To</th>
+                <th>Date</th>
+                <th>Priority</th>
+                <th>Status</th>
+                <th>Actions</th>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
+      </section>
+
+      <!-- <section class="mt-4 p-3">
+        <div class="mt-lg-5 row tasks_content"></div>
+      </section> -->
+    </div>
+
+    <!--Script-->
+    <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+
+    <script src="scripts/index.js"></script>
+    <!-- Bootstrap -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa"
+      crossorigin="anonymous"
+    ></script>
+
+    <!-- Datatable -->
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+  </body>
+</html>
