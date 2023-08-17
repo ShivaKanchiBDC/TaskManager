@@ -268,6 +268,7 @@
 
     <!--main body-->
     <div class="container">
+      <!-- profile -->
       <section class="mt-4">
         <div class="profile_details">
           <div class="name">
@@ -297,20 +298,61 @@
       <!--Task Contents-->
       <section class="pt-5 border-top mt-5">
         <!-- Add task -->
-        <div class="d-flex flex-row align-items-center justify-content-between">
-          <h2>Tasks</h2>
-          <button
-            class="btn btn-primary d-block"
-            type="submit"
-            data-bs-toggle="modal"
-            data-bs-target="#addNewModal"
+        <div class="">
+          <div class="row">
+            <h4 class="col-2">Employees :</h4>
+            <div
+              id="employee_navbar"
+              class="btn-group pt-2"
+              role="group"
+              aria-label="Basic radio toggle button group"
+            >
+              <input
+                type="radio"
+                class="btn-check"
+                name="Employee"
+                id="Shiva"
+                autocomplete="off"
+              />
+              <label class="btn btn-outline-primary" for="Shiva">Shiva</label>
+
+              <input
+                type="radio"
+                class="btn-check"
+                name="Employee"
+                id="Jwala"
+                autocomplete="off"
+              />
+              <label class="btn btn-outline-primary" for="Jwala">Jwala</label>
+
+              <input
+                type="radio"
+                class="btn-check"
+                name="Employee"
+                id="Sagar"
+                autocomplete="off"
+              />
+              <label class="btn btn-outline-primary" for="Sagar">Sagar</label>
+            </div>
+          </div>
+
+          <div
+            class="d-flex flex-row align-items-center justify-content-between mt-5"
           >
-            <i class="fa-solid fa-plus"></i>
-            Add new
-          </button>
+            <h2>Tasks</h2>
+            <button
+              class="btn btn-primary d-block"
+              type="submit"
+              data-bs-toggle="modal"
+              data-bs-target="#addNewModal"
+            >
+              <i class="fa-solid fa-plus"></i>
+              Add new
+            </button>
+          </div>
         </div>
 
-        <div class="mt-5" id="tasks">
+        <div class="mt-2" id="tasks">
           <table id="tasktable" class="display" style="width: 100%">
             <thead>
               <tr>
