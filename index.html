@@ -25,18 +25,18 @@
       href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css"
       rel="stylesheet"
     />
-    <link
+    <!-- <link
       href="https://cdn.datatables.net/searchbuilder/1.5.0/css/searchBuilder.dataTables.min.css"
       rel="stylesheet"
     />
     <link
       href="https://cdn.datatables.net/datetime/1.5.1/css/dataTables.dateTime.min.css"
       rel="stylesheet"
-    />
+    /> -->
     <title>Task Manager</title>
   </head>
 
-  <body onload="updateIntialData() ">
+  <body onload="updateIntialData()">
     <!--Mobile Add button-->
     <div class="button__mobileonly d-md-none">
       <button
@@ -44,6 +44,7 @@
         type="submit"
         data-bs-toggle="modal"
         data-bs-target="#addNewModal"
+        onclick="reRenderData() "
       >
         <i class="fa-solid fa-plus"></i>
         Add new Task
@@ -86,6 +87,7 @@
                   <option value="SWRE">SWRE</option>
                   <option value="SWPL">SWPL</option>
                   <option value="Camel">Camel</option>
+                  <option value="TaskManager">TaskManager</option>
                 </select>
               </div>
 
@@ -112,6 +114,9 @@
                   aria-label="Default select example"
                 >
                   <option value="" disabled selected>Employee Name</option>
+                  <option value="Girish" id="selectedEmployeeManagerSelf">
+                    Girish
+                  </option>
                   <option value="Sagar">Sagar</option>
                   <option value="Jwala">Jwala</option>
                   <option value="Sunil">Sunil</option>
@@ -303,7 +308,7 @@
         </div>
       </section>
 
-      <!--Task Contents-->
+      <!--Tasks Section-->
       <section class="">
         <!-- Add task -->
         <div class="border-top mt-5">
@@ -334,7 +339,10 @@
                 aria-label="Default select example"
                 id="selectedEmployee"
               >
-                <option value="Girish">Girish</option>
+                <option value="Girish" id="selectedEmployeeManager">
+                  Girish
+                </option>
+                <option value="Sunil">Sunil</option>
                 <option value="Sagar">Sagar</option>
                 <option value="Jwala">Jwala</option>
                 <option value="Shiva">Shiva</option>
@@ -349,18 +357,30 @@
               Tasks of
               <span id="selectedEmployeeTitle"> Girish</span>
             </h2>
-            <button
-              class="btn btn-primary d-block"
-              type="submit"
-              data-bs-toggle="modal"
-              data-bs-target="#addNewModal"
-            >
-              <i class="fa-solid fa-plus"></i>
-              Add new
-            </button>
+            <div>
+              <!-- <button
+                class="btn btn-primary d-inline"
+                type=""
+                onclick="myTasks()"
+                data-bs-toggle="button"
+                style="outline: none"
+              >
+                My Tasks
+              </button> -->
+              <button
+                class="btn btn-primary d-inline"
+                type="submit"
+                data-bs-toggle="modal"
+                data-bs-target="#addNewModal"
+                onclick="reRenderData() "
+              >
+                <i class="fa-solid fa-plus"></i>
+                Add new Task
+              </button>
+            </div>
           </div>
         </div>
-
+        <!--Task Contents-->
         <div class="mt-2" id="tasks">
           <table id="tasktable" class="display" style="width: 100%">
             <thead>
@@ -404,7 +424,7 @@
     ></script>
     <!-- Datatable -->
     <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.datatables.net/searchbuilder/1.5.0/js/dataTables.searchBuilder.min.js"></script>
-    <script src="https://cdn.datatables.net/datetime/1.5.1/js/dataTables.dateTime.min.js"></script>
+    <!-- <script src="https://cdn.datatables.net/searchbuilder/1.5.0/js/dataTables.searchBuilder.min.js"></script>
+    <script src="https://cdn.datatables.net/datetime/1.5.1/js/dataTables.dateTime.min.js"></script> -->
   </body>
 </html>

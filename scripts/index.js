@@ -29,15 +29,15 @@ let tasklist = [
   },
 ];
 let tasklistTemp;
-let Shivatasks = [
+let Sagartasks = [
   {
     id: "789",
-    project: "TaskManager",
+    project: "Camel",
     task: "Frontend update",
     assignedOn: "1692184282172",
     priority: 0,
     status: false,
-    assignedTo: "Shiva",
+    assignedTo: "Sagar",
   },
 ];
 
@@ -48,21 +48,21 @@ const taskmodal = document.querySelector(".show_task_content");
 
 const selectedEmployeeTab = document.getElementById("selectedEmployee");
 const selectedEmployeeTitle = document.getElementById("selectedEmployeeTitle");
-console.log(selectedEmployeeTab.value);
 
+//if Employee Selected
 selectedEmployeeTab.addEventListener("change", (event) => {
   selectedEmployee = selectedEmployeeTab.value;
-  console.log("clicked", selectedEmployee, selectedEmployeeTab.value);
-
-  if (`${selectedEmployeeTab.value}tasks` == "Shivatasks") {
-    console.log("clicked shiva's task");
+  // console.log("clicked", selectedEmployee, selectedEmployeeTab.value);
+  if (`${selectedEmployeeTab.value}tasks` == "Sagartasks") {
+    console.log("clicked sagar's task");
     tasklistTemp = tasklist;
-    tasklist = Shivatasks;
+    tasklist = Sagartasks;
   } else {
-    tasklist = tasklistTemp;
+    if (tasklistTemp) tasklistTemp.length < 0 ? "" : (tasklist = tasklistTemp);
   }
   updateIntialData();
 });
+
 var table;
 // Function to render data into the DataTable
 function renderData(data) {
@@ -163,13 +163,14 @@ $(document).ready(function () {
 });
 
 function reRenderData() {
+  console.log("Table refreshed");
+  document.getElementById("taskform").reset();
   // button
   let savebutton = document.getElementById("savetask");
   savebutton.style.display = "inline";
   let updatebutton = document.getElementById("updatetask");
   updatebutton.style.display = "none";
-  let statusgroup = document.getElementById("status_group");
-  statusgroup.style.display = "none";
+  document.getElementById("status_group").style.display = "none";
   selectedTaskId = 0;
   // Clear and destroy the existing DataTable
   if (table) {
@@ -207,14 +208,14 @@ const openTask = (e) => {
 };
 
 const editTask = (e) => {
-  console.log(tasklist);
+  // console.log(tasklist);
   if (!e) e = window.event;
   const targetId = e.target.id;
   selectedTaskId = targetId;
   if (!targetId) targetId = e.target.getAttribute("name");
   const getTask = tasklist.find((obj) => obj.id === targetId);
 
-  console.log("inside edit task", getTask, selectedTaskId, targetId);
+  // console.log("inside edit task", getTask, selectedTaskId, targetId);
   // button
   let savebutton = document.getElementById("savetask");
   savebutton.style.display = "none";
@@ -279,7 +280,6 @@ const deleteTask = (e) => {
   const targetId = e.target.getAttribute("name");
   const removeTask = tasklist.filter(({ id }) => id !== targetId);
   tasklist = removeTask;
-  updateLocalStorage();
   updateLocalStorage();
   reRenderData();
   console.log("delete", tasklist);
@@ -351,10 +351,11 @@ const htmlModalContent = ({
   project,
   task,
   assignedTo,
+  assignedOn,
   priority,
   status,
 }) => {
-  const date = new Date(parseInt(id));
+  const date = new Date(parseInt(assignedOn));
   console.log("modal open", date, priority);
   return `    
 	<div id=${id} class="d-flex flex-column gap-1" >
@@ -387,7 +388,7 @@ const updateLocalStorage = () => {
 };
 
 const updateIntialData = () => {
-  // selectedEmployeeTab.value = selectedEmployee;
+  // Assigning selected Emp to Html
   {
     let employeeOptionToSelect = selectedEmployee;
     let optionToSelect = selectedEmployeeTab.querySelector(
